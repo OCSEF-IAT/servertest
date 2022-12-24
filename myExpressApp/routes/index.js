@@ -1,8 +1,9 @@
 // ==========================================================================================================================
 // VARIABLES
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const access_control_URL = "http://127.0.0.1:5500";
 
 require("dotenv").config(); 
 
@@ -64,17 +65,27 @@ async function connectStudent(request) { // we async this function b/c we don't 
 // REQUEST = User's incoming data
 // RESPONSE = Your outgoing data (that you return to the client)
 router.get("/teacher/:data", (request, response, next) => {
+
+    // Allow other webpages to access this API
+    response.setHeader('content-type', 'text/javascript');
+    response.setHeader('Access-Control-Allow-Origin', access_control_URL); // Change URL to github pages link later (currently for development testing)
+    
     connectTeacher(request);
-    response.send("Connection Successful!");
+    response.send({message:"Connection Successful!"});
 });
 
 router.get("/student/:data", (request, response, next) => {
+
+    // Allow other webpages to access this API
+    response.setHeader('content-type', 'text/javascript');
+    response.setHeader('Access-Control-Allow-Origin', access_control_URL); // Change URL to github pages link later (currently for development testing)
+
     connectStudent(request);
-    response.send("Connection Successful!");
+    response.send({message:"Connection Successful!"}); // return JSON object
 });
 
 router.get("/", (request, response, next) => {
-    response.send("Hello World!");
+    response.send({message:"Hello World!"});
 });
 
 module.exports = router;
