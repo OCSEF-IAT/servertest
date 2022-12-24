@@ -63,32 +63,14 @@ async function connectStudent(request) { // we async this function b/c we don't 
 
 // REQUEST = User's incoming data
 // RESPONSE = Your outgoing data (that you return to the client)
-router.get("/teacher/:data", async (request, response, next) => {
-
-  try{
-    await client.connect(); // wait for the client to connect
-    //console.log("Connected to MongoDB Atlas!");
-
-    const iat_database = client.db("IAT-Data"); 
-    const teacher = iat_database.collection("Teacher"); 
-
-    await teacher.insertOne({
-        "data": request.params["data"]
-    });
-    await client.close();
-
-    response.send("MongoDB Atlas Connection Successful");
-  }
-  catch(error){
-    response.send("Something went wrong: " + error);
-  }
-
-  response.send(request.params["data"]);
+router.get("/teacher/:data", (request, response, next) => {
+    connectTeacher(request);
+    response.send("Connection Successful!");
 });
 
 router.get("/student/:data", (request, response, next) => {
     connectStudent(request);
-    response.send(process.env.DATABASE_URI);
+    response.send("Connection Successful!");
 });
 
 router.get("/", (request, response, next) => {
