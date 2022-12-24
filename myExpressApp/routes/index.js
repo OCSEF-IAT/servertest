@@ -3,7 +3,7 @@
 
 const express = require('express');
 const router = express.Router();
-const access_control_URL = "http://127.0.0.1:5500";
+const access_control_URL = "https://ocsef-iat.github.io";
 
 require("dotenv").config(); 
 
