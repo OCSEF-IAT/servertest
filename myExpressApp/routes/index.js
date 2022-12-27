@@ -50,7 +50,7 @@ class IATDATA{
 // Bypass CORS Policy so that the client can access the API
 // Change URL to github pages link later (currently for development testing)
 router.use(cors({
-    origin: process.env.HOST_PRODUCTION
+    origin: [process.env.HOST_PRODUCTION, process.env.HOST_DEVELOPMENT]
 }));
 
 router.use(express.json()); // Parse JSON Object
