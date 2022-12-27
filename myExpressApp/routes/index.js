@@ -7,9 +7,6 @@ require("dotenv").config();
 
 // Allow certain websites to access this API (use * so any site can call the API)
 const cors = require('cors');
-const corsOptions = {
-    origin: process.env.HOST_PRODUCTION
-};
 
 const MongoClient = require("mongodb").MongoClient;
 const uri = process.env.DATABASE_URI;
@@ -52,7 +49,9 @@ class IATDATA{
 
 // Bypass CORS Policy so that the client can access the API
 // Change URL to github pages link later (currently for development testing)
-router.use(cors(corsOptions));
+router.use(cors({
+    origin: process.env.HOST_PRODUCTION
+}));
 
 router.use(express.json()); // Parse JSON Object
 
